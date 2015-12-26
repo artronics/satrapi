@@ -4,6 +4,7 @@ import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -13,7 +14,7 @@ public class SdwnNetwork
 {
     private  Long id;
 
-    private List<SdwnController> controllers;
+    private List<SdwnController> controllers=new ArrayList<>();
 
     protected String ip;
 
