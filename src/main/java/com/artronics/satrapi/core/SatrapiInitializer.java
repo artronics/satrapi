@@ -21,7 +21,7 @@ public class SatrapiInitializer implements
     private String ip;
     private String connectionString;
 
-    private boolean seedDb=false;
+    private boolean seedDb = false;
 
     private SdwnNetwork sdwnNetwork;
 
@@ -35,13 +35,15 @@ public class SatrapiInitializer implements
     private Seeder seeder;
 
     @PostConstruct
-    public void initBean(){
+    public void initBean()
+    {
         String seed = "com.artronics.satrapi.persistence.seed";
-        if(!env.containsProperty(seed))
+        if (!env.containsProperty(seed))
             seedDb = false;
         else {
             seedDb = Boolean.parseBoolean(env.getProperty(seed));
-            connectionString = env.getProperty("com.artronics.satrapi.connection.connection_string");
+            connectionString = env.getProperty("com.artronics.satrapi.connection" +
+                                                       ".connection_string");
         }
 
         ip = env.getProperty("com.artronics.satrapi.network.ip");
@@ -51,7 +53,7 @@ public class SatrapiInitializer implements
     public void onApplicationEvent(ContextRefreshedEvent event)
     {
         if (seedDb)
-            seeder.seedNetwork(ip,connectionString);
+            seeder.seedNetwork(ip, connectionString);
 
         initSdwnNetwork();
     }

@@ -24,9 +24,13 @@ public class Seeder
         ctrl.setSdwnNetwork(net);
         ctrl.setSinkAddress(0L);
 
+        net.addSdwnController(ctrl);
+
         DeviceConnection dev = new DeviceConnection();
         dev.setSdwnController(ctrl);
         dev.setConnectionString(connectionString);
+
+        ctrl.setDeviceConnection(dev);
 
         connectionRepo.save(dev);
 
