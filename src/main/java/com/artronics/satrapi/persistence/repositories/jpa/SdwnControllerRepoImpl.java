@@ -40,4 +40,17 @@ public class SdwnControllerRepoImpl implements SdwnControllerCustomRepo
 
         return null;
     }
+
+    @Override
+    public List<SdwnController> findByNetwork(Long networkId)
+    {
+        SdwnNetwork network = networkRepo.findOne(networkId);
+        if (network == null) {
+            return null;
+        }
+
+        List<SdwnController> controllers = network.getControllers();
+
+        return controllers;
+    }
 }
