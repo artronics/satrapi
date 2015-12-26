@@ -61,9 +61,6 @@ public class RepoBaseTes
      * network. For this entity we persist numOfCtrl. persistedCtrl is the first SdwnController
      * (index 0)
      * <p/>
-     * CAUTION: Remember during Spring Container inside event we persist a SdwnNetwork associated
-     * with this machine. see SatrapiInitializer
-     *
      * @throws Exception
      */
     @Before
