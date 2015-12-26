@@ -26,13 +26,13 @@ public class SatrapiInitializer implements
     private SdwnNetwork sdwnNetwork;
 
     @Autowired
-    Environment env;
+    private Environment env;
 
     @Autowired
-    SdwnNetworkRepo networkRepo;
+    private SdwnNetworkRepo networkRepo;
 
     @Autowired
-    Seeder seeder;
+    private Seeder seeder;
 
     @PostConstruct
     public void initBean(){
@@ -54,7 +54,6 @@ public class SatrapiInitializer implements
             seeder.seedNetwork(ip,connectionString);
 
         initSdwnNetwork();
-
     }
 
     public void initSdwnNetwork()
