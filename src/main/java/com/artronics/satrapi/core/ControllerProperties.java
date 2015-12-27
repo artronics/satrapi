@@ -30,6 +30,9 @@ public class ControllerProperties
     private static Map<String,Object> createCtrlProp(SdwnController controller){
         Map<String,Object> prop = new HashMap<>();
 
+        prop.put("com.artronics.senator.controller.id",controller.getId());
+        prop.put("com.artronics.senator.controller.sink_address",controller.getSinkAddress());
+
         return prop;
     }
 }

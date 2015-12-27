@@ -42,4 +42,13 @@ public class CreateEntities
 
         return con;
     }
+
+    public static SdwnController createCtrl(Long id,Long sinkAdd)
+    {
+        SdwnController con = new SdwnController();
+        con.setId(id);
+        con.setSinkAddress(sinkAdd);
+
+        return con;
+    }
 }
