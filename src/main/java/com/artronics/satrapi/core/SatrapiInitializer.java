@@ -5,6 +5,7 @@ import com.artronics.satrapi.persistence.repositories.SdwnNetworkRepo;
 import com.artronics.satrapi.persistence.seed.Seeder;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.core.env.Environment;
@@ -56,6 +57,9 @@ public class SatrapiInitializer implements
             seeder.seedNetwork(ip, connectionString);
 
         initSdwnNetwork();
+
+        AnnotationConfigEmbeddedWebApplicationContext cnx =(AnnotationConfigEmbeddedWebApplicationContext) event.getSource();
+
     }
 
     public void initSdwnNetwork()
