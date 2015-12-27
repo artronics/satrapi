@@ -12,6 +12,8 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.core.env.ConfigurableEnvironment;
+import org.springframework.core.env.MutablePropertySources;
 
 import java.util.Map;
 import java.util.Set;
@@ -87,6 +89,24 @@ public class NetworkInitializerTest
 
             ControllerConfig ctrlConfig = ctrlCntx.getBean(ControllerConfig.class);
             assertNotNull(ctrlConfig);
+        }
+    }
+
+    @Test
+    public void for_all_controllers_we_should_set_env_properties(){
+        networkInitializer.createContexts();
+
+        Map<Long, AnnotationConfigApplicationContext> controllerContexts = networkInitializer
+                .getControllerContexts();
+
+        for (int i = 0; i < numOfCtrls; i++) {
+            AnnotationConfigApplicationContext ctrlCntx
+                    = controllerContexts.get(Integer.toUnsignedLong(i));
+
+            ConfigurableEnvironment env = ctrlCntx.getEnvironment();
+            MutablePropertySources sources =env.getPropertySources();
+            String ctrlPropName = "Controller Properties for id: "+i;
+            assertTrue(sources.contains(ctrlPropName));
         }
     }
 

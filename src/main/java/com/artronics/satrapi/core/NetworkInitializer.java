@@ -7,7 +7,6 @@ import com.artronics.senator.network.SdwnNetworkConfig;
 import org.apache.log4j.Logger;
 import org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.core.env.Environment;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -40,15 +39,14 @@ public class NetworkInitializer
         for (SdwnController ctrl: sdwnNetwork.getControllers()){
             AnnotationConfigApplicationContext ctrlContext=
                     new AnnotationConfigApplicationContext(ControllerConfig.class);
+
+            String ctrlPropName = "Controller Properties for id: "+Long.toString(ctrl.getId());
+            ControllerProperties.addCtrlProp(ctrlContext,ctrlPropName,ctrl);
+
             controllerContexts.put(ctrl.getId(),ctrlContext);
 
             ctrlContext.setParent(networkContext);
         }
-    }
-
-    public static Environment addControllerEnv(Environment ctrlEnv ,SdwnController controller){
-
-        return ctrlEnv;
     }
 
     public AnnotationConfigApplicationContext getNetworkContext()
