@@ -2,7 +2,7 @@ package com.artronics.satrapi.core;
 
 import com.artronics.satrapi.entities.SdwnController;
 import com.artronics.satrapi.helper.CreateEntities;
-import com.artronics.senator.controller.ControllerConfigTest;
+import com.artronics.senator.controller.ControllerConfig;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -17,7 +17,7 @@ import static org.junit.Assert.assertTrue;
 public class ControllerPropertiesTest
 {
     AnnotationConfigApplicationContext context =
-            new AnnotationConfigApplicationContext(ControllerConfigTest.class);
+            new AnnotationConfigApplicationContext(ControllerConfig.class);
 
     SdwnController controller;
 
