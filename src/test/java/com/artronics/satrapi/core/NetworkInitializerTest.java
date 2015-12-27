@@ -4,7 +4,8 @@ import com.artronics.satrapi.entities.DeviceConnection;
 import com.artronics.satrapi.entities.SdwnController;
 import com.artronics.satrapi.entities.SdwnNetwork;
 import com.artronics.satrapi.helper.CreateEntities;
-import com.artronics.senator.SdwnNetworkConfig;
+import com.artronics.senator.controller.ControllerConfig;
+import com.artronics.senator.network.SdwnNetworkConfig;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -18,7 +19,7 @@ import java.util.Set;
 import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.Assert.*;
 
-public class NetworkInitilizerTest
+public class NetworkInitializerTest
 {
     private String someIp = "127.35.164.233";
     private int numOfCtrls = 5;
@@ -70,6 +71,22 @@ public class NetworkInitilizerTest
         Set<Long> ctrlContainersKeySet = networkInitializer.getControllerContexts().keySet();
         for (int i = 0; i < numOfCtrls; i++) {
             assertTrue(ctrlContainersKeySet.contains(Integer.toUnsignedLong(i)));
+        }
+    }
+
+    @Test
+    public void for_all_ctrl_there_is_a_config(){
+        networkInitializer.createContexts();
+
+        Map<Long, AnnotationConfigApplicationContext> controllerContexts = networkInitializer
+                .getControllerContexts();
+
+        for (int i = 0; i < numOfCtrls; i++) {
+            AnnotationConfigApplicationContext ctrlCntx
+                    = controllerContexts.get(Integer.toUnsignedLong(i));
+
+            ControllerConfig ctrlConfig = ctrlCntx.getBean(ControllerConfig.class);
+            assertNotNull(ctrlConfig);
         }
     }
 

@@ -2,10 +2,12 @@ package com.artronics.satrapi.core;
 
 import com.artronics.satrapi.entities.SdwnController;
 import com.artronics.satrapi.entities.SdwnNetwork;
-import com.artronics.senator.SdwnNetworkConfig;
+import com.artronics.senator.controller.ControllerConfig;
+import com.artronics.senator.network.SdwnNetworkConfig;
 import org.apache.log4j.Logger;
 import org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.core.env.Environment;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -37,11 +39,16 @@ public class NetworkInitializer
 
         for (SdwnController ctrl: sdwnNetwork.getControllers()){
             AnnotationConfigApplicationContext ctrlContext=
-                    new AnnotationConfigApplicationContext();
+                    new AnnotationConfigApplicationContext(ControllerConfig.class);
             controllerContexts.put(ctrl.getId(),ctrlContext);
 
             ctrlContext.setParent(networkContext);
         }
+    }
+
+    public static Environment addControllerEnv(Environment ctrlEnv ,SdwnController controller){
+
+        return ctrlEnv;
     }
 
     public AnnotationConfigApplicationContext getNetworkContext()
