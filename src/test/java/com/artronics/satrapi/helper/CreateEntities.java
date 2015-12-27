@@ -34,6 +34,13 @@ public class CreateEntities
 
         return dev;
     }
+    public static DeviceConnection createDevCon(Long id,String conStr)
+    {
+        DeviceConnection dev = new DeviceConnection(conStr);
+        dev.setId(id);
+
+        return dev;
+    }
 
     public static SdwnController createCtrl()
     {
