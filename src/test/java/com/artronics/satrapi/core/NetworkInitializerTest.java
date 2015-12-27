@@ -111,6 +111,24 @@ public class NetworkInitializerTest
     }
 
     @Test
+    public void for_each_dev_associated_with_each_ctrl_it_should_add_prop(){
+        networkInitializer.createContexts();
+
+        Map<Long, AnnotationConfigApplicationContext> controllerContexts = networkInitializer
+                .getControllerContexts();
+
+        for (int i = 0; i < numOfCtrls; i++) {
+            AnnotationConfigApplicationContext ctrlCntx
+                    = controllerContexts.get(Integer.toUnsignedLong(i));
+
+            ConfigurableEnvironment env = ctrlCntx.getEnvironment();
+            MutablePropertySources sources =env.getPropertySources();
+            String ctrlPropName = "DeviceConnection Properties for id: "+i;
+            assertTrue(sources.contains(ctrlPropName));
+        }
+    }
+
+    @Test
     public void networkContainer_is_the_parent_of_all_controllers_container(){
         networkInitializer.createContexts();
 

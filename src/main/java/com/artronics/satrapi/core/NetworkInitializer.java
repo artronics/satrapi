@@ -1,5 +1,6 @@
 package com.artronics.satrapi.core;
 
+import com.artronics.satrapi.entities.DeviceConnection;
 import com.artronics.satrapi.entities.SdwnController;
 import com.artronics.satrapi.entities.SdwnNetwork;
 import com.artronics.senator.controller.ControllerConfig;
@@ -40,11 +41,18 @@ public class NetworkInitializer
             AnnotationConfigApplicationContext ctrlContext=
                     new AnnotationConfigApplicationContext(ControllerConfig.class);
 
+            //Set prop for controller
             String idStr=Long.toString(ctrl.getId());
-
             log.debug("Add properties for controller: "+idStr);
             String ctrlPropName = "Controller Properties for id: "+idStr;
             ControllerProperties.addCtrlProp(ctrlContext,ctrlPropName,ctrl);
+
+            //Set prop for device associated with this controller
+            DeviceConnection dev = ctrl.getDeviceConnection();
+            String devIdStr = Long.toString(dev.getId());
+            log.debug("Add properties for device: "+devIdStr);
+            String devPropName = "DeviceConnection Properties for id: "+idStr;
+            DeviceProperties.addDeviceProp(ctrlContext,devPropName,dev);
 
             controllerContexts.put(ctrl.getId(),ctrlContext);
 
