@@ -40,7 +40,10 @@ public class NetworkInitializer
             AnnotationConfigApplicationContext ctrlContext=
                     new AnnotationConfigApplicationContext(ControllerConfig.class);
 
-            String ctrlPropName = "Controller Properties for id: "+Long.toString(ctrl.getId());
+            String idStr=Long.toString(ctrl.getId());
+
+            log.debug("Add properties for controller: "+idStr);
+            String ctrlPropName = "Controller Properties for id: "+idStr;
             ControllerProperties.addCtrlProp(ctrlContext,ctrlPropName,ctrl);
 
             controllerContexts.put(ctrl.getId(),ctrlContext);
