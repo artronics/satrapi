@@ -2,6 +2,7 @@ package com.artronics.satrapi.core;
 
 import com.artronics.satrapi.entities.SdwnController;
 import com.artronics.satrapi.entities.SdwnNetwork;
+import com.artronics.senator.SdwnNetworkConfig;
 import org.apache.log4j.Logger;
 import org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -31,12 +32,15 @@ public class NetworkInitializer
     }
 
     public void createContexts(){
-        networkContext = new AnnotationConfigApplicationContext();
+        networkContext = new AnnotationConfigApplicationContext(SdwnNetworkConfig.class);
+        networkContext.setParent(webContext);
 
         for (SdwnController ctrl: sdwnNetwork.getControllers()){
             AnnotationConfigApplicationContext ctrlContext=
                     new AnnotationConfigApplicationContext();
             controllerContexts.put(ctrl.getId(),ctrlContext);
+
+            ctrlContext.setParent(networkContext);
         }
     }
 

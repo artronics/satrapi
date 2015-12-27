@@ -4,12 +4,15 @@ import com.artronics.satrapi.entities.DeviceConnection;
 import com.artronics.satrapi.entities.SdwnController;
 import com.artronics.satrapi.entities.SdwnNetwork;
 import com.artronics.satrapi.helper.CreateEntities;
+import com.artronics.senator.SdwnNetworkConfig;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
+import java.util.Map;
 import java.util.Set;
 
 import static org.hamcrest.core.IsEqual.equalTo;
@@ -44,6 +47,15 @@ public class NetworkInitilizerTest
     }
 
     @Test
+    public void it_should_have_config(){
+        networkInitializer.createContexts();
+
+        SdwnNetworkConfig config =networkInitializer.getNetworkContext().getBean(SdwnNetworkConfig.class);
+
+        assertNotNull(config);
+    }
+
+    @Test
     public void it_should_create_numOfCtrls_controllerContainer()
     {
         networkInitializer.createContexts();
@@ -59,6 +71,32 @@ public class NetworkInitilizerTest
         for (int i = 0; i < numOfCtrls; i++) {
             assertTrue(ctrlContainersKeySet.contains(Integer.toUnsignedLong(i)));
         }
+    }
+
+    @Test
+    public void networkContainer_is_the_parent_of_all_controllers_container(){
+        networkInitializer.createContexts();
+
+        AnnotationConfigApplicationContext netContex = networkInitializer.getNetworkContext();
+
+        Map<Long, AnnotationConfigApplicationContext> controllerContexts = networkInitializer
+                .getControllerContexts();
+
+        for (int i = 0; i < numOfCtrls; i++) {
+            AnnotationConfigApplicationContext ctrlCntx
+                    = controllerContexts.get(Integer.toUnsignedLong(i));
+
+            assertThat(ctrlCntx.getParent(),equalTo(netContex));
+        }
+    }
+
+    @Test
+    public void webContainer_is_the_parent_of_networkContainer(){
+        networkInitializer.createContexts();
+
+        AnnotationConfigApplicationContext netContainer = networkInitializer.getNetworkContext();
+
+        assertThat(netContainer.getParent(),equalTo(webContext));
     }
 
     private static SdwnNetwork createSdwnNetwork(String ip, int numCtrl)
