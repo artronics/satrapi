@@ -65,7 +65,7 @@ public class CreateEntities
 
         for (int i = 0; i < num; i++) {
             SdwnNode node = new SdwnNode(Integer.toUnsignedLong(i));
-            node.setId(1234+Integer.toUnsignedLong(i));
+            nodes.add(node);
         }
 
         return nodes;

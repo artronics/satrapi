@@ -3,6 +3,8 @@ package com.artronics.satrapi.persistence.repositories;
 import com.artronics.satrapi.entities.DeviceConnection;
 import com.artronics.satrapi.entities.SdwnController;
 import com.artronics.satrapi.entities.SdwnNetwork;
+import com.artronics.satrapi.entities.SdwnNode;
+import com.artronics.satrapi.helper.CreateEntities;
 import org.apache.log4j.Logger;
 import org.junit.After;
 import org.junit.Before;
@@ -58,6 +60,7 @@ public class RepoBaseTes
     //protected Long devId;
 
     protected int numOfCtrl = 5;
+    protected int numOfNodes = 7;
 
     /**
      * Before each test we persist a SdwnNetwork with ip address of someIp, netId is the Id of this
@@ -76,6 +79,11 @@ public class RepoBaseTes
 
         ctrlId = persistedNet.getControllers().get(0).getId();
         persistedCtrl = controllerRepo.findOne(ctrlId);
+        DeviceConnection device = new DeviceConnection("foo string");
+        device.setSdwnController(persistedCtrl);
+        persistSdwnNodes(device,numOfNodes);
+
+        persistedDev = connectionRepo.findOne(1L);
     }
 
     //    @Ignore("This is a test in RepoBaseTest which should be run for debugging base class")
@@ -119,5 +127,14 @@ public class RepoBaseTes
         SdwnNetwork net = createNet(ip);
 
         return networkRepo.save(net);
+    }
+    
+    protected DeviceConnection persistSdwnNodes(DeviceConnection device,int num){
+        List<SdwnNode> nodes = CreateEntities.createNodes(num);
+        for (SdwnNode node:nodes){
+            node.setDevice(device);
+        }
+        device.setNodes(nodes);
+        return connectionRepo.save(device);
     }
 }

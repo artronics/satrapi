@@ -4,6 +4,7 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -13,7 +14,7 @@ public class DeviceConnection
 {
     private Long id;
 
-    private List<SdwnNode> nodes;
+    private List<SdwnNode> nodes=new ArrayList<>();
 
     protected String connectionString;
 
@@ -110,5 +111,9 @@ public class DeviceConnection
     protected void onUpdate()
     {
         updated = new Date();
+    }
+
+    public void addSdwnNode(SdwnNode node){
+        nodes.add(node);
     }
 }
