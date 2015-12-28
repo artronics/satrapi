@@ -30,6 +30,9 @@ public class SatrapiInitializer implements
     private Environment env;
 
     @Autowired
+    AnnotationConfigEmbeddedWebApplicationContext webContext;
+
+    @Autowired
     private SdwnNetworkRepo networkRepo;
 
     @Autowired
@@ -58,10 +61,7 @@ public class SatrapiInitializer implements
 
         initSdwnNetwork();
 
-        AnnotationConfigEmbeddedWebApplicationContext cnx =
-                (AnnotationConfigEmbeddedWebApplicationContext) event.getSource();
-
-        NetworkInitializer networkInitializer = new NetworkInitializer(cnx,sdwnNetwork);
+        NetworkInitializer networkInitializer = new NetworkInitializer(webContext,sdwnNetwork);
 
         networkInitializer.createContexts();
     }
