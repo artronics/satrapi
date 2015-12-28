@@ -5,12 +5,15 @@ import org.hibernate.annotations.Parameter;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "device_connections")
 public class DeviceConnection
 {
     private Long id;
+
+    private List<SdwnNode> nodes;
 
     protected String connectionString;
 
@@ -41,6 +44,17 @@ public class DeviceConnection
     public void setId(Long id)
     {
         this.id = id;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    public List<SdwnNode> getNodes()
+    {
+        return nodes;
+    }
+
+    public void setNodes(List<SdwnNode> nodes)
+    {
+        this.nodes = nodes;
     }
 
     @Column(name = "connection_string",nullable = false,unique = false)
