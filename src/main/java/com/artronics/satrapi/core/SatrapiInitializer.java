@@ -53,6 +53,7 @@ public class SatrapiInitializer implements
         ip = env.getProperty("com.artronics.satrapi.network.ip");
     }
 
+    //TODO move to ApplicationRunner see: https://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-spring-application.html#boot-features-command-line-runner
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event)
     {
