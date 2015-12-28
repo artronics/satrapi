@@ -122,7 +122,12 @@ public class SdwnNode extends AbstractNode
     @Override
     public int hashCode()
     {
-        return super.hashCode();
+        int result =17;
+        int add = (int) (address ^ (address >>> 32));
+        int devId =deviceId==null ? 0: (int) (deviceId ^ (deviceId >>> 32));
+        result+=add+devId;
+
+        return 31*result;
     }
 
     @Override
