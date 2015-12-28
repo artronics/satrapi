@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,7 +58,7 @@ public class RepoBaseTes
 
     //it is associated with persistedCtrl
     protected DeviceConnection persistedDev;
-    //protected Long devId;
+    protected Long devId;
 
     protected int numOfCtrl = 5;
     protected int numOfNodes = 7;
@@ -70,6 +71,7 @@ public class RepoBaseTes
      * @throws Exception
      */
     @Before
+    @Transactional
     public void setUp() throws Exception
     {
         //creates one SdwnNetwork with 5 controllers
@@ -83,7 +85,8 @@ public class RepoBaseTes
         device.setSdwnController(persistedCtrl);
         persistSdwnNodes(device,numOfNodes);
 
-        persistedDev = connectionRepo.findOne(1L);
+        persistedDev = connectionRepo.findOne(device.getId());
+        devId = persistedDev.getId();
     }
 
     //    @Ignore("This is a test in RepoBaseTest which should be run for debugging base class")

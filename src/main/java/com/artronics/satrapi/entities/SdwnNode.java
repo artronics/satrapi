@@ -122,10 +122,17 @@ public class SdwnNode extends AbstractNode
     @Override
     public int hashCode()
     {
+        //use getters for getting fields(for ORM) see this SO answer:
+        //http://stackoverflow.com/questions/27581/what-issues-should-be-considered-when-overriding-equals-and-hashcode-in-java
+        Long devId = getDeviceId();
+        Long add = getAddress();
+
         int result =17;
-        int add = (int) (address ^ (address >>> 32));
-        int devId =deviceId==null ? 0: (int) (deviceId ^ (deviceId >>> 32));
-        result+=add+devId;
+
+        int addr = (int) (add ^ (add >>> 32));
+        int devIdi =devId==null ? 0: (int) (devId ^ (devId >>> 32));
+
+        result+=addr+devIdi;
 
         return 31*result;
     }
