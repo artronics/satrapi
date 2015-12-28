@@ -43,5 +43,4 @@ public class SdwnNodeRepoTest extends RepoBaseTes
 
         assertNotNull(aNode);
     }
-
 }

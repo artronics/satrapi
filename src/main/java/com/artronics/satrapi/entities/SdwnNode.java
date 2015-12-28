@@ -6,12 +6,9 @@ import java.util.Date;
 
 @Entity
 @Table(name = "nodes")
-public class SdwnNode
+public class SdwnNode extends AbstractNode
 {
-    private Long id;
     private DeviceConnection device;
-
-    private Long address;
 
     //Normal as default value
     private Type type=Type.NORMAL;
@@ -30,20 +27,7 @@ public class SdwnNode
         this.address = address;
     }
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id",nullable = false,unique = true)
-    public Long getId()
-    {
-        return id;
-    }
-
-    public void setId(Long id)
-    {
-        this.id = id;
-    }
-
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @JoinColumn(name = "device_id", nullable = false)
     public DeviceConnection getDevice()
     {
@@ -53,18 +37,6 @@ public class SdwnNode
     public void setDevice(DeviceConnection device)
     {
         this.device = device;
-    }
-
-    @Column(name = "address",nullable = false,unique = false)
-    public Long getAddress()
-    {
-        return address;
-    }
-
-
-    public void setAddress(Long address)
-    {
-        this.address = address;
     }
 
     @Enumerated(EnumType.STRING)
