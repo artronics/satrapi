@@ -47,7 +47,7 @@ public class DeviceConnection
         this.id = id;
     }
 
-    @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY)
     public List<SdwnNode> getNodes()
     {
         return nodes;
