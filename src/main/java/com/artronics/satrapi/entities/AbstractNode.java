@@ -11,6 +11,16 @@ public abstract class AbstractNode
     @Transient
     protected Long deviceId;
 
+    public AbstractNode()
+    {
+    }
+
+    public AbstractNode(Long address, Long deviceId)
+    {
+        this.address = address;
+        this.deviceId = deviceId;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id",nullable = false,unique = true)
