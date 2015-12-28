@@ -40,9 +40,25 @@ public abstract class AbstractNode
         return address;
     }
 
-
     public void setAddress(Long address)
     {
         this.address = address;
+    }
+
+    public Long getDeviceId()
+    {
+        return deviceId;
+    }
+
+    public void setDeviceId(Long deviceId)
+    {
+        this.deviceId = deviceId;
+    }
+
+
+    @Override
+    public String toString()
+    {
+        return "Node: "+address.toString();
     }
 }

@@ -11,7 +11,7 @@ public class SdwnNode extends AbstractNode
     private DeviceConnection device;
 
     //Normal as default value
-    private Type type=Type.NORMAL;
+    private Type type = Type.NORMAL;
     private Status status = Status.ACTIVE;
     private int battery;
 
@@ -27,7 +27,7 @@ public class SdwnNode extends AbstractNode
         this.address = address;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "device_id", nullable = false)
     public DeviceConnection getDevice()
     {
@@ -40,7 +40,7 @@ public class SdwnNode extends AbstractNode
     }
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "type",nullable = false)
+    @Column(name = "type", nullable = false)
     public Type getType()
     {
         return type;
@@ -52,7 +52,7 @@ public class SdwnNode extends AbstractNode
     }
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "status",nullable = false)
+    @Column(name = "status", nullable = false)
     public Status getStatus()
     {
         return status;
@@ -107,12 +107,35 @@ public class SdwnNode extends AbstractNode
         updated = new Date();
     }
 
-    public enum Type{
+    public enum Type
+    {
         SINK,
         NORMAL
     }
-    public enum Status{
+
+    public enum Status
+    {
         ACTIVE,
         DISABLE,
+    }
+
+    @Override
+    public int hashCode()
+    {
+        return super.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj)
+    {
+        if (!(obj instanceof SdwnNode))
+            return false;
+        if (obj == this)
+            return true;
+
+        SdwnNode rhs = (SdwnNode) obj;
+        return this.getAddress().equals(rhs.getAddress()) &&
+                this.getDeviceId().equals(rhs.getDeviceId());
+
     }
 }
