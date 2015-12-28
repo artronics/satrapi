@@ -58,8 +58,12 @@ public class SatrapiInitializer implements
 
         initSdwnNetwork();
 
-        AnnotationConfigEmbeddedWebApplicationContext cnx =(AnnotationConfigEmbeddedWebApplicationContext) event.getSource();
+        AnnotationConfigEmbeddedWebApplicationContext cnx =
+                (AnnotationConfigEmbeddedWebApplicationContext) event.getSource();
 
+        NetworkInitializer networkInitializer = new NetworkInitializer(cnx,sdwnNetwork);
+
+        networkInitializer.createContexts();
     }
 
     public void initSdwnNetwork()
