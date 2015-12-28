@@ -41,6 +41,9 @@ public class RepoBaseTes
     @Autowired
     protected PacketRepo packetRepo;
 
+    @Autowired
+    protected SdwnNodeRepo nodeRepo;
+
     //net that is persisted with someIp
     protected String someIp = "12.34.55.234";
     protected SdwnNetwork persistedNet;
