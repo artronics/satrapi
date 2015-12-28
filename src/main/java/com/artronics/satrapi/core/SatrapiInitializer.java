@@ -5,11 +5,11 @@ import com.artronics.satrapi.persistence.repositories.SdwnNetworkRepo;
 import com.artronics.satrapi.persistence.seed.Seeder;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.support.GenericWebApplicationContext;
 
 import javax.annotation.PostConstruct;
 
@@ -30,7 +30,7 @@ public class SatrapiInitializer implements
     private Environment env;
 
     @Autowired
-    AnnotationConfigEmbeddedWebApplicationContext webContext;
+    GenericWebApplicationContext webContext;
 
     @Autowired
     private SdwnNetworkRepo networkRepo;
