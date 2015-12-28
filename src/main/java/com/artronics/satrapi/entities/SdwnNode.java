@@ -21,6 +21,15 @@ public class SdwnNode
     protected Date created;
     protected Date updated;
 
+    public SdwnNode()
+    {
+    }
+
+    public SdwnNode(Long address)
+    {
+        this.address = address;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id",nullable = false,unique = true)
